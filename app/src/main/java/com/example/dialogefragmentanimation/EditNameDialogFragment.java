@@ -1,6 +1,7 @@
 package com.example.dialogefragmentanimation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,13 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class EditNameDialogFragment extends DialogFragment {
+import com.example.dialogefragmentanimation.lib.BlurDialogFragment;
+
+public class EditNameDialogFragment extends BlurDialogFragment
+{
 
     private EditText mEditText;
+    private String mTag = this.getClass().getSimpleName();
 
     public EditNameDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -59,6 +64,10 @@ public class EditNameDialogFragment extends DialogFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.PopupAnimation;
+        try {
+            getDialog().getWindow().getAttributes().windowAnimations = R.style.PopupAnimation;
+        } catch (Exception e) {
+            Log.d(mTag, "(onActivityCreated) catch error = " + e.getMessage());
+        }
     }
 }
